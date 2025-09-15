@@ -1,0 +1,44 @@
+# OS
+.DS_Store
+
+# Editors/IDE
+.vscode/
+.idea/
+.ropeproject/
+*.swp
+*.swo
+
+# Python cache and build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+*.egg
+
+# Environments
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.envrc
+
+# Logs
+*.log
+
+# Node (in case any demos include a UI)
+node_modules/
+npm-debug.log*
+yarn-error.log*

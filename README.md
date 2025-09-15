@@ -49,7 +49,7 @@ Issues and PRs are welcome. If you add a new agent, include:
 - A short `LESSON.md` with setup, env vars, and how to run it.
 - No hard‑coded secrets. Prefer `.env.example` for documentation.
 
-## Checkout Skillmix
+## Supporting the Project
 
 If you want to support this project please checkout my site, [Skillmix](https://skillmix.io).
 

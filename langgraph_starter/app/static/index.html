@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Skillmix LangGraph Tester</title>
+    <style>
+      body{font:16px/1.4 system-ui, sans-serif; margin:2rem; max-width:900px}
+      textarea{width:100%; height:7rem}
+      .out{white-space:pre-wrap; background:#0b1020; color:#d6e2ff; padding:1rem; border-radius:8px; min-height:6rem}
+      button{padding:.6rem 1rem; border-radius:8px; border:0; font-weight:600}
+      .row{display:flex; gap:1rem; align-items:center}
+      input[type=text]{padding:.5rem .6rem; border-radius:8px; border:1px solid #ddd; flex:1}
+    </style>
+  </head>
+  <body>
+    <h1>Skillmix LangGraph Tester</h1>
+    <p><textarea id="prompt" placeholder="Say hi…"></textarea></p>
+    <p class="row">
+      <button id="run">Run</button>
+      <span id="status"></span>
+    </p>
+    <div class="out" id="out"></div>
+
+    <script>
+      const ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
+      ws.onopen = () => document.getElementById('status').textContent = 'connected';
+      ws.onclose = () => document.getElementById('status').textContent = 'disconnected';
+      const out = document.getElementById('out');
+      function append(t){ out.textContent += t }
+      ws.onmessage = (ev) => {
+        const msg = JSON.parse(ev.data);
+        if (msg.type === 'started') { out.textContent = ''; }
+        if (msg.type === 'token')   { append(msg.text); }
+        if (msg.type === 'error')   { append(`
+[error] ${msg.error}
+`); }
+      };
+      document.getElementById('run').onclick = () => {
+        const prompt = document.getElementById('prompt').value || 'Hello!';
+        ws.send(JSON.stringify({ provider:'langgraph', input: { prompt } }));
+      };
+    </script>
+  </body>
+</html>
